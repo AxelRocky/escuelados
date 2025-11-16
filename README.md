@@ -31,10 +31,7 @@ D:\WebProjects\escuela
     └── img/
     └── js/
     └── temarios/
-└── vendor/                
-    └── phpmailer/
-    └── autoload.php
-└── composer.json
+└── htaccess.json
         
 
 /var/www/html/escuela/
@@ -54,3 +51,23 @@ D:\WebProjects\escuela\     ← (versión en Windows si usas Nginx en tu PC)
     ├── img/
     ├── js/
     └── temarios/
+
+
+version apache2
+
+├── app
+    └── inicio.php
+    └── controladores/
+        └── Login.php
+    └── libs/
+        └── Control.php
+        └── Controlador.php
+        └── Mariadb.php
+    └── modelos/
+    └── vistas/
+    └── .htaccess
+└── public/
+    └── index.php
+    └── .htaccess
+└── .htaccess
+        
