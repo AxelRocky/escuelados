@@ -1,27 +1,30 @@
 <?php
 class Login extends Controlador
 {
+    private $modelo = "";
+
     function __construct()
     {
-    //code
+        $this->modelo = $this->modelo("LoginModelo");
     }
 
-    public function caratula($value='')
+    public function caratula()
     {
-        print "Bienvenid@ al sistema de control escolar perros del gobierno";
+        $datos = [
+            "titulo" => "Entrada al sistema",
+            "subtitulo" => "Escuela"
+        ];
+        $this->vista("loginCaratulaVista", $datos);
     }
-    // entendamos como a un metodo le vamos a pasar parametros
-    public function metodoVariable()
+    public function olvido()
     {
-        if (func_num_args()>0) {
-            for ($i=0; $i < print func_get_arg(); $i++) { 
-                print func_get_arg($i)."<br>";
-            }
-        } else {
-            print "No hay argumentos sencillos perros"<
-        }
-        
+        $datos = [
+            "titulo" => "Recuperar clave de acceso",
+            "subtitulo" => "Olvido de clave de acceso"
+        ];
+        $this->vista("loginOlvidoVista", $datos);
     }
+  
 }
 
 ?>
