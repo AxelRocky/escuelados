@@ -16,6 +16,17 @@
         <div class="row content">
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
+                <?php 
+                if (isset($datos["errores"])) {
+                    if (count($datos["errores"])>0) {
+                        print "<div class='alert alert-danger mt-3'>";
+                        foreach ($datos["errores"] as $valor) {
+                            print "<strong>* ".$valor."</strong><br>";
+                        }
+                        print "</div>";
+                    }
+                }
+                ?>
                 <div class="card p-4 mt-3 bg-light">
                     <div class="card-header text-center">
                         <h2><?php print $datos["subtitulo"]; ?></h2>

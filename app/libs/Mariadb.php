@@ -22,5 +22,13 @@ class Mariadb
 		  die("No se pudo conectar: " . $e->getMessage());
 		}
 	}
+	public function query($sql='')
+	{
+		if (empty($sql)) 
+			return false;
+		$stmt = $this->conn->query($sql);
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+		
+	}
 
 }
