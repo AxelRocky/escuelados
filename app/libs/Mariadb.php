@@ -30,5 +30,12 @@ class Mariadb
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 		
 	}
+	// Actualiza, Inserta, Elimina
+	public function queryNoSelect($sql, $data)
+	{
+		
+		return $this->conn->prepare($sql)->execute($data);
+	}
 
 }
+?>

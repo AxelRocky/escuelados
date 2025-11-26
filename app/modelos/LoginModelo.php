@@ -15,6 +15,12 @@ class LoginModelo
        $sql = "SELECT id FROM usuarios WHERE correo ='".$usuario."'";
        return $this->db->query($sql);
     }
+    public function actualizarClaveAcceso($data)
+    {
+       if (empty($data)) return false;  
+       $sql = "UPDATE usuarios SET clave=:clave WHERE id=:id";
+       return $this->db->queryNoSelect($sql, $data);
+    }
     public function enviarCorreo($email='')
     {
        // Lógica para enviar correo

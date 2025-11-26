@@ -109,9 +109,39 @@ class Login extends Controlador
                 array_push($errores, "Las claves de acceso no coinciden.");
             }
             if (count($errores)==0){
-                //code
+                $clave = hash_hmac("sha512", $clave1, CLAVE);
+                $data = ["clave" => $clave, "id"=>$id];
+                if ($this->modelo->actualizarClaveAcceso($data)) {
+                    $datos = [
+                        "titulo" => "Cambio de clave de acceso",
+                        "menu" => false,
+                        "errores" => [],
+                        "data" => [],
+                        "subtitulo" => "Cambio de clave de acceso",
+                        "texto" => "Se ha cambiado la clave de acceso con exito.",
+                        "color" => "alert-success",
+                        "url" => "login",
+                        "colorBoton" => "btn-success",
+                        "textoBoton" => "Regresar al inicio"
+                    ];
+                        $this->vista("mensaje", $datos);
+                } else {
+                    $datos = [
+                        "titulo" => "Cambio de clave de acceso",
+                        "menu" => false,
+                        "errores" => [],
+                        "data" => [],
+                        "subtitulo" => "Cambio de clave de acceso",
+                        "texto" => "Existe un problema con el correo electrónico proporcionado. Favor de verificarlo e intentarlo nuevamente. Si el problema persiste, favor de comunicarse al área de soporte técnico.",
+                        "color" => "alert-danger",
+                        "url" => "login",
+                        "colorBoton" => "btn-danger",
+                        "textoBoton" => "Regresar al inicio"
+                    ];
+                        $this->vista("mensaje", $datos);
+                }
             }
-          
+            exit;
         }
         $datos = [
             "titulo" => "Cambiar contraseña",
@@ -120,6 +150,49 @@ class Login extends Controlador
             "data" => $id
         ];
         $this->vista("loginCambiarVista", $datos);
+    }
+    public function verificar()
+    {
+         $errores = [];
+        if ($_SERVER['REQUEST_METHOD']=="POST") {
+            $id = $_POST['id']??"";
+            $usuario = $_POST['usuario']??"";
+            $clave2 = $_POST['clave']??"";
+            //
+            if (empty($clave)) {
+                array_push($errores, "la clave de acceso es requerida.");
+            } 
+            if (empty($usuario )) {
+                array_push($errores, "La confirmación de la clave de acceso es requerida.");
+            }
+            
+           //
+            if (count($errores)==0){
+                //
+                $clave = hash_hmac("sha512", $clave, CLAVE);
+                $data = $this->modelo->validarCorreo($usuario);
+                //
+                if ($data["clave"]==$clave) {
+                    $sesion = new Sesion();
+                    $sesion->iniciarLogin($data);
+                    header("Location: ".RUTA."tablero");
+                } else {
+                    $datos = [
+                        "titulo" => "Sistema escolar",
+                        "menu" => false,
+                        "errores" => [],
+                        "data" => [],
+                        "subtitulo" => "Sistema escolar",
+                        "texto" => "Existe un error al acceder al Sistema escolar.",
+                        "color" => "alert-danger",
+                        "url" => "login",
+                        "colorBoton" => "btn-danger",
+                        "textoBoton" => "Regresar"
+                    ];
+                        $this->vista("mensaje", $datos);
+                }
+            }
+        }
     }
 }
 
