@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * 
+ */
 class Sesion
 {
     private $login = false;
@@ -20,16 +22,18 @@ class Sesion
     public function iniciarLogin($usuario='')
     {
         if (($usuario)) {
-            $this->usuario = $_SESSION['usuario'] = $usuario;
+            $this->usuario = $_SESSION["usuario"] = $usuario;
             $this->login = true;
         }
     }
+
    public function finalizarSesion()
    {
        unset($_SESSION['usuario']);
        unset($this->usuario);
        $this->login = false;
    }
+   
     public function getLogin()
     {
         return $this->login;

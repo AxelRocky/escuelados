@@ -1,3 +1,5 @@
+
+
 <?php
 
 class Tablero extends Controlador
@@ -13,7 +15,10 @@ class Tablero extends Controlador
     {
         $datos = [
             "titulo" => "Entrada al sistema",
-            "subtitulo" => "Escuela"
+            "subtitulo" => "Escuela",
+            "admon" => "admon",
+            "menu" => true
+            
         ];
         $this->vista("tableroCaratulaVista", $datos);
     }

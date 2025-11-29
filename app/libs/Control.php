@@ -1,5 +1,3 @@
-
-
 <?php  
 /**
  * Entrada y definicion del control de la URI
@@ -13,11 +11,13 @@ class Control
 	function __construct()
 	{
 		$url = $this->separaURL();
+
 		if ($url!="" && file_exists("../app/controladores/".ucwords($url[0]).".php")){				
 			$this->controlador = ucwords($url[0]);
 			unset($url[0]);
 		}
 		//Cargamos a la clase controladora
+		//
 		require_once("../app/controladores/".ucwords($this->controlador).".php");
 		//Creamos la instancia
 		$this->controlador = new $this->controlador;
@@ -30,8 +30,10 @@ class Control
 		}
 		//Parametros
 		$this->parametros = $url?array_values($url):[];
+
 		call_user_func_array([$this->controlador,$this->metodo],$this->parametros);
 	}
+	
 	public function separaURL()
 	{
 		$url = "";

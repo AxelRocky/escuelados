@@ -1,4 +1,7 @@
 <?php
+/**
+ * 
+ */
 class LoginModelo
 {
     private $db = "";
@@ -7,34 +10,36 @@ class LoginModelo
     {
         $this->db = new Mariadb();
     }
+
     public function validarCorreo($usuario='')
     {
-       if (empty($usuario)) {
-           return false;
-       }
+        //
+       if (empty($usuario)) return false;
        $sql = "SELECT id FROM usuarios WHERE correo ='".$usuario."'";
        return $this->db->query($sql);
     }
+
     public function actualizarClaveAcceso($data)
     {
+        //
        if (empty($data)) return false;  
        $sql = "UPDATE usuarios SET clave=:clave WHERE id=:id";
        return $this->db->queryNoSelect($sql, $data);
     }
+
     public function enviarCorreo($email='')
     {
-       // Lógica para enviar correo
        $data = [];
         if ($email=="") {
             return false;
         } else {
             $data = $this->validarCorreo($email);
             if (!empty($data)) {
-               Helper::mostrar($data);
             $id = Helper::encriptar($data["id"]);
-            // Simular el envío de correo
+            // 
             $msg = "Entra a la siguiente liga para cambiar tu clave de acceso alcontrol de gastos..<br>";
             $msg .= "<a href='".RUTA."login/cambiarclave/".$id."'>Cambiar clave de acceso</a>";
+           
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             $headers .= 'From: noreply@escuelapitagoras.com' . "\r\n";

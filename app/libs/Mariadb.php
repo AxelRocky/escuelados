@@ -1,4 +1,7 @@
 <?php
+/**
+ * 
+ */
 class Mariadb
 {
 	private $host = "localhost";
@@ -7,7 +10,6 @@ class Mariadb
 	private $db = "escuela";
 	private $puerto = "3306";
 	private $conn;
-	
 	
 	function __construct()
 	{
@@ -22,20 +24,20 @@ class Mariadb
 		  die("No se pudo conectar: " . $e->getMessage());
 		}
 	}
+
 	public function query($sql='')
 	{
-		if (empty($sql)) 
-			return false;
+		if (empty($sql)) return false;
 		$stmt = $this->conn->query($sql);
-		return $stmt->fetch(PDO::FETCH_ASSOC);
-		
+		return $stmt->fetch(PDO::FETCH_ASSOC);	
 	}
+
 	// Actualiza, Inserta, Elimina
 	public function queryNoSelect($sql, $data)
-	{
-		
+	{	
 		return $this->conn->prepare($sql)->execute($data);
 	}
 
 }
+
 ?>

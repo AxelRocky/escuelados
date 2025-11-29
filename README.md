@@ -24,50 +24,50 @@ D:\WebProjects\escuela
             └── olvido.php
         └── encabezado.php
         └── piepagina.php
+        └── .htaccess
 └── public/
-    └── index.php
     └── css/
     └── fotos/
     └── img/
     └── js/
     └── temarios/
-└── htaccess.json
-        
-
-/var/www/html/escuela/
-D:\WebProjects\escuela\     ← (versión en Windows si usas Nginx en tu PC)
-├── app/
-│   ├── inicio.php
-│   ├── controladores/
-│   ├── libs/
-│   │   ├── control.php
-│   │   └── mariadb.php    ← Aquí vive tu clase Mariadb
-│   ├── modelos/
-│   └── vistas/
-└── public/
-    ├── index.php           ← Punto de entrada del sitio (Nginx apunta aquí)
-    ├── css/
-    ├── fotos/
-    ├── img/
-    ├── js/
-    └── temarios/
-
-
-version apache2
-
-├── app
-    └── inicio.php
-    └── controladores/
-        └── Login.php
-    └── libs/
-        └── Control.php
-        └── Controlador.php
-        └── Mariadb.php
-    └── modelos/
-    └── vistas/
-    └── .htaccess
-└── public/
     └── index.php
     └── .htaccess
 └── .htaccess
         
+
+
+version apache2 ACTUAl
+
+├── app
+    └── controladores/
+        └── Login.php
+        └── Tablero.php
+    └── libs/
+        └── Control.php
+        └── Controlador.php
+        └── Helper.php
+        └── Mariadb.php
+        └── Sesion.php
+    └── modelos/
+        └── LoginModelo.php
+        └── TableroModelo.php
+    └── vistas/
+        └── encabezado.php
+        └── loginCambiarVista.php
+        └── loginCaratulaVista.php
+        └── loginOlvidoVista.php
+        └── mensaje.php
+        └── piepagina.php
+        └── tableroCaratulaVista.php
+        └── .htaccess
+    └── inicio.php
+└── public/
+    └── css/
+    └── fotos/
+    └── img/
+    └── js/
+    └── temarios/
+    └── index.php
+    └── .htaccess
+└── .htaccess

@@ -1,4 +1,7 @@
 <?php
+/**
+ * 
+ */
 class TableroModelo
 {
     private $db = "";
@@ -8,5 +11,4 @@ class TableroModelo
         $this->db = new Mariadb();
     }
 }
-
 ?>
