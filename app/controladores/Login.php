@@ -52,34 +52,39 @@ class Login extends Controlador
             if (empty($errores)) {
                 // Validar en la base de datos
                 if ($this->modelo->validarCorreo($usuario)) {
-                    if ($this->modelo->enviarCorreo($usuario)) {
-                        $datos = [
-                        "titulo" => "Cambio clave de acceso",
-                        "menu" => false,
-                        "errores" => [],
-                        "data" => [],
-                        "subtitulo" => "Cambio de clave de acceso",
-                        "texto" => "Se ha enviado un correo a <b>".$usuario."</b> para que puedas cambiar tu clave de acceso. Cualquier duda te puedes comunicar con nosotros. No olvides revisar tu bandeja de spam.",
-                        "color" => "alert-success",
-                        "url" => "login",
-                        "colorBoton" => "btn-success",
-                        "textoBoton" => "Regresar al inicio"
-                    ];
-                        $this->vista("mensaje", $datos);
+                    $res = $this->modelo->enviarCorreo($usuario);
+                    if (is_bool($res)) {
+                        if ($res) {
+                            $datos = [
+                            "titulo" => "Cambio clave de acceso",
+                            "menu" => false,
+                            "errores" => [],
+                            "data" => [],
+                            "subtitulo" => "Cambio de clave de acceso",
+                            "texto" => "Se ha enviado un correo a <b>".$usuario."</b> para que puedas cambiar tu clave de acceso. Cualquier duda te puedes comunicar con nosotros. No olvides revisar tu bandeja de spam.",
+                            "color" => "alert-success",
+                            "url" => "login",
+                            "colorBoton" => "btn-success",
+                            "textoBoton" => "Regresar al inicio"
+                        ];
+                            $this->vista("mensaje", $datos);
+                        } else {
+                             $datos = [
+                            "titulo" => "Cambio clave de acceso",
+                            "menu" => false,
+                            "errores" => [],
+                            "data" => [],
+                            "subtitulo" => "Cambio de clave de acceso",
+                            "texto" => "Existió un error al enviar el correo electrónico. Favor de intentarlo más tarde o reportarlo a soporte técnico.",
+                            "color" => "alert-danger",
+                            "url" => "login",
+                            "colorBoton" => "btn-danger",
+                            "textoBoton" => "Regresar"
+                        ];
+                            $this->vista("mensaje", $datos);
+                        }
                     } else {
-                         $datos = [
-                        "titulo" => "Cambio clave de acceso",
-                        "menu" => false,
-                        "errores" => [],
-                        "data" => [],
-                        "subtitulo" => "Cambio de clave de acceso",
-                        "texto" => "Existió un error al enviar el correo electrónico. Favor de intentarlo más tarde o reportarlo a soporte técnico.",
-                        "color" => "alert-danger",
-                        "url" => "login",
-                        "colorBoton" => "btn-danger",
-                        "textoBoton" => "Regresar"
-                    ];
-                        $this->vista("mensaje", $datos);
+                        $this->vista("mensaje", $res);
                     }
                     
                 } else {
@@ -89,7 +94,7 @@ class Login extends Controlador
                         "errores" => [],
                         "data" => [],
                         "subtitulo" => "Cambio de clave de acceso",
-                        "texto" => "Existió un error al enviar el correo electrónico. Favor de intentarlo más tarde o reportarlo a soporte técnico.",
+                        "texto" => "El correo electrónico no se encuentra en nuestra base de datos.",
                         "color" => "alert-danger",
                         "url" => "login",
                         "colorBoton" => "btn-danger",

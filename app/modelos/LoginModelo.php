@@ -15,8 +15,9 @@ class LoginModelo
     {
         //
        if (empty($usuario)) return false;
-       $sql = "SELECT id FROM usuarios WHERE correo ='".$usuario."'";
-       return $this->db->query($sql);
+       $sql = "SELECT id FROM usuarios WHERE correo =:correo";
+       $data = [":correo" => $usuario];
+       return $this->db->query($sql, $data);
     }
 
     public function actualizarClaveAcceso($data)
@@ -49,25 +50,22 @@ class LoginModelo
             var_dump($msg);
             return @mail($email, $asunto, $msg, $headers);
         }else{
-             $datos = [
-                        "titulo" => "Cambio clave de acceso",
-                        "menu" => false,
-                        "errores" => [],
-                        "data" => [],
-                        "subtitulo" => "Cambio de clave de acceso",
-                        "texto" => "Existe un problema con el correo electrónico proporcionado. Favor de verificarlo e intentarlo nuevamente. Si el problema persiste, favor de comunicarse al área de soporte técnico.",
-                        "color" => "alert-danger",
-                        "url" => "login",
-                        "colorBoton" => "btn-danger",
-                        "textoBoton" => "Regresar al inicio"
-                    ];
-                        $this->vista("mensaje", $datos);
+                        return [
+                            "titulo" => "Cambio clave de acceso",
+                            "menu" => false,
+                            "errores" => [],
+                            "data" => [],
+                            "subtitulo" => "Cambio de clave de acceso",
+                            "texto" => "Existe un problema con el correo electrónico proporcionado. Favor de verificarlo e intentarlo nuevamente. Si el problema persiste, favor de comunicarse al área de soporte técnico.",
+                            "color" => "alert-danger",
+                            "url" => "login",
+                            "colorBoton" => "btn-danger",
+                            "textoBoton" => "Regresar al inicio"
+                        ];
         } 
 
         } 
     }
-
-
 }
 ?>
 

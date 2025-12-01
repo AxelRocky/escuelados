@@ -25,7 +25,14 @@ class Mariadb
 		}
 	}
 
-	public function query($sql='')
+	public function query($sql, $data)
+	{
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute($data);
+		return $stmt->fetch(PDO::FETCH_ASSOC);	
+	}
+
+	public function querySimple($sql='')
 	{
 		if (empty($sql)) return false;
 		$stmt = $this->conn->query($sql);
