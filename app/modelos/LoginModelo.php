@@ -15,7 +15,7 @@ class LoginModelo
     {
         //
        if (empty($usuario)) return false;
-       $sql = "SELECT id FROM usuarios WHERE correo =:correo";
+       $sql = "SELECT * FROM usuarios WHERE correo =:correo";
        $data = [":correo" => $usuario];
        return $this->db->query($sql, $data);
     }

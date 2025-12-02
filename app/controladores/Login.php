@@ -40,13 +40,13 @@ class Login extends Controlador
         $errores = [];
         // 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $usuario = $_POST['usuario']??"";
+            $usuario = $_POST['usuario'] ?? "";
             //
             if (empty($usuario)) {
-               array_push($errores, "El correo electrónico es requerido.");
+                array_push($errores, "El correo electrónico es requerido.");
             }
             if (filter_var($usuario, FILTER_VALIDATE_EMAIL) === false) {
-               array_push($errores, "El correo electrónico no es valido.");
+                array_push($errores, "El correo electrónico no es valido.");
             }
             //
             if (empty($errores)) {
@@ -56,39 +56,39 @@ class Login extends Controlador
                     if (is_bool($res)) {
                         if ($res) {
                             $datos = [
-                            "titulo" => "Cambio clave de acceso",
-                            "menu" => false,
-                            "errores" => [],
-                            "data" => [],
-                            "subtitulo" => "Cambio de clave de acceso",
-                            "texto" => "Se ha enviado un correo a <b>".$usuario."</b> para que puedas cambiar tu clave de acceso. Cualquier duda te puedes comunicar con nosotros. No olvides revisar tu bandeja de spam.",
-                            "color" => "alert-success",
-                            "url" => "login",
-                            "colorBoton" => "btn-success",
-                            "textoBoton" => "Regresar al inicio"
-                        ];
+                                "titulo" => "Cambio clave de acceso",
+                                "menu" => false,
+                                "errores" => [],
+                                "data" => [],
+                                "subtitulo" => "Cambio de clave de acceso",
+                                "texto" => "Se ha enviado un correo a <b>" . $usuario . "</b> para que puedas cambiar tu clave de acceso. Cualquier duda te puedes comunicar con nosotros. No olvides revisar tu bandeja de spam.",
+                                "color" => "alert-success",
+                                "url" => "login",
+                                "colorBoton" => "btn-success",
+                                "textoBoton" => "Regresar al inicio"
+                            ];
                             $this->vista("mensaje", $datos);
                         } else {
-                             $datos = [
-                            "titulo" => "Cambio clave de acceso",
-                            "menu" => false,
-                            "errores" => [],
-                            "data" => [],
-                            "subtitulo" => "Cambio de clave de acceso",
-                            "texto" => "Existió un error al enviar el correo electrónico. Favor de intentarlo más tarde o reportarlo a soporte técnico.",
-                            "color" => "alert-danger",
-                            "url" => "login",
-                            "colorBoton" => "btn-danger",
-                            "textoBoton" => "Regresar"
-                        ];
+                            $datos = [
+                                "titulo" => "Cambio clave de acceso",
+                                "menu" => false,
+                                "errores" => [],
+                                "data" => [],
+                                "subtitulo" => "Cambio de clave de acceso",
+                                "texto" => "Existió un error al enviar el correo electrónico. Favor de intentarlo más tarde o reportarlo a soporte técnico.",
+                                "color" => "alert-danger",
+                                "url" => "login",
+                                "colorBoton" => "btn-danger",
+                                "textoBoton" => "Regresar"
+                            ];
                             $this->vista("mensaje", $datos);
                         }
                     } else {
                         $this->vista("mensaje", $res);
                     }
-                    
+
                 } else {
-                     $datos = [
+                    $datos = [
                         "titulo" => "Cambio clave de acceso",
                         "menu" => false,
                         "errores" => [],
@@ -100,21 +100,20 @@ class Login extends Controlador
                         "colorBoton" => "btn-danger",
                         "textoBoton" => "Regresar"
                     ];
-                        $this->vista("mensaje", $datos);
-                        } 
-                } 
-                exit;
-            } 
-					$datos = [
-			        "titulo"=> "Olvido de la clave",
-			        "subtitulo" => "Olvidaste la clave de acceso",
-			        "errores" => $errores,
-			        "data" => []
-	    ];
-					$this->vista("loginOlvidoVista",$datos);	
+                    $this->vista("mensaje", $datos);
+                }
             }
-      
-    public function cambiarclave($data='')
+        } else {
+            $datos = [
+                "titulo" => "Olvido de la clave",
+                "subtitulo" => "Olvidaste la clave de acceso",
+                "errores" => $errores,
+                "data" => []
+            ];
+            $this->vista("loginOlvidoVista", $datos);
+        }
+    }
+    public function cambiarclave($data = '')
     {
         $id = Helper::desencriptar($data);
         $errores = [];

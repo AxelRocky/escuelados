@@ -32,13 +32,28 @@ class Mariadb
 		return $stmt->fetch(PDO::FETCH_ASSOC);	
 	}
 
+	public function querySelect($sql='')
+	{
+		if (empty($sql)) return false;
+		$data = [];
+		$stmt = $this->conn->query($sql);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		do {
+			array_push($data, $row);
+		} while ($row = $stmt->fetch(PDO::FETCH_ASSOC));
+		if (!$data[0]) {
+			$data = [];
+		}
+
+	}
+/*
 	public function querySimple($sql='')
 	{
 		if (empty($sql)) return false;
 		$stmt = $this->conn->query($sql);
 		return $stmt->fetch(PDO::FETCH_ASSOC);	
 	}
-
+*/
 	// Actualiza, Inserta, Elimina
 	public function queryNoSelect($sql, $data)
 	{	
